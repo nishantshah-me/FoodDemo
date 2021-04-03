@@ -73,6 +73,7 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical|start"
                     android:maxLines="1"
+                    android:layout_marginLeft="10dp"
                     android:text="Line Coffee"
                     android:textAlignment="viewStart"
                     android:textColor="@color/black"

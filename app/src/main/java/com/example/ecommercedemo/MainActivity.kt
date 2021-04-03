@@ -1,10 +1,16 @@
 package com.example.ecommercedemo
 
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
+import androidx.appcompat.widget.Toolbar
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecommercedemo.Adapter.RecyclerAdapter
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.shivansh.tablayoutrecyclerviewmediator.TabLayoutRecyclerViewMediator
 
@@ -12,6 +18,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var rv_list: RecyclerView
     private lateinit var tabs: TabLayout
+    private lateinit var mAppBarLayout: AppBarLayout
+    private lateinit var expandedImage: ImageView
+    private lateinit var mToolBar: Toolbar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +33,20 @@ class MainActivity : AppCompatActivity() {
     private fun initViews(){
         rv_list = findViewById(R.id.rv_list)
         tabs = findViewById(R.id.tabs)
+        expandedImage = findViewById(R.id.expandedImage)
+        mAppBarLayout = findViewById(R.id.app_bar)
+        mToolBar = findViewById(R.id.toolbar)
+        setSupportActionBar(mToolBar);
+        mAppBarLayout.addOnOffsetChangedListener(object: AppBarStateChangeListener() {
+            override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
+                when(state) {
+                    State.COLLAPSED -> expandedImage.visibility = View.GONE
+                    State.EXPANDED -> expandedImage.visibility = View.VISIBLE
+                    State.IDLE -> { /* Do something */ }
+                }
+            }
+        }
+        )
         setupRecyclerViewWithTabs()
     }
 
